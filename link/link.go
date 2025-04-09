@@ -34,7 +34,7 @@ func ParseAnchors(r io.Reader) (anchors []Anchor, err error) {
 	// Get the first node in the html tree
 	docNode, err := html.Parse(r)
 	if err != nil {
-		panic(err)
+		return nil, err	
 	}
 	
 	// recursively search the tree for <a> nodes and return them to variable nodes
