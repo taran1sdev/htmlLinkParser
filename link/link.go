@@ -10,6 +10,19 @@ type Anchor struct{
 	Text string
 }
 
+// getText recursively searches for text in nodes - Grabs link text inside <strong> tags etc.
+
+func getText(n *html.Node) (text string) {
+	if n.Type == html.TextNode {
+		return n.Data
+	} 
+
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		text += getText(c)
+	}
+	return
+}
+
 // anchorNodes recursively searches through the html tree checking if ElementNodes are Anchor tags
 
 func anchorNodes(n *html.Node) (nodes []*html.Node) {
@@ -42,7 +55,7 @@ func ParseAnchors(r io.Reader) (anchors []Anchor, err error) {
 		// make sure the node has a href and if so create an anchor variable with the
 		// href and text of the first child then append it to the return value
 		if node.Attr[0].Key == "href" {
-			a := Anchor{node.Attr[0].Val, node.FirstChild.Data}
+			a := Anchor{node.Attr[0].Val, getText(node)}
 			anchors = append(anchors, []Anchor{a}...)
 		}
 	}
