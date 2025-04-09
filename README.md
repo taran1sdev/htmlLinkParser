@@ -1,7 +1,7 @@
 # htmlLinkParser
 
 Build:
-```
+```bash
 git clone https://github.com/taran1sdev/htmlLinkParser.git
 cd htmlLinkParser
 go install golang.org/x/net/html
@@ -9,7 +9,10 @@ go mod init link
 go build main.go
 ```
 
-Usage: 'htmlLinkParser -htmlFile=yourfile.html'
+Usage: 
+```bash
+htmlLinkParser -htmlFile=yourfile.html
+```
 
 Example: 
 ```bash
