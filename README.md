@@ -20,7 +20,7 @@ htmlLinkParser -htmlFile=./test/ex1.html
 href: /other-page | Text: A link to another page
 ```
 
-The application takes a html file as input and uses the x/net/html packacke to parse the html tree.
+The application takes a html file as input and uses the x/net/html package to parse the html tree.
 
 It performs a recursive depth-first-search to find all the ElementNodes that are anchor `<a>` tags.
 
