@@ -31,7 +31,7 @@ func main() {
 	ext := filepath.Ext(*htmlFile)
 
 	if ext != ".html" {
-		log.Fatalf("File must me a html file!")
+		log.Fatalf("File must be a html file!")
 	}
 
 	
