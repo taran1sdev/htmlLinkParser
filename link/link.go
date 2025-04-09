@@ -12,7 +12,7 @@ type Anchor struct{
 
 // anchorNodes recursively searches through the html tree checking if ElementNodes are Anchor tags
 
-func anchorNodes(n *html.Node) (anchors []*html.Node) {
+func anchorNodes(n *html.Node) (nodes []*html.Node) {
 	// Check if node is an <a> tag and if it is return it
 	if n.Type == html.ElementNode && n.Data == "a" {
 		return []*html.Node{n}
@@ -21,7 +21,7 @@ func anchorNodes(n *html.Node) (anchors []*html.Node) {
 	// dfs search through html tree appending each node we find
 	// to our return variable
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
-		anchors = append(anchors, anchorNodes(c)...)
+		nodes = append(nodes, anchorNodes(c)...)
 	} 
 
 	return
