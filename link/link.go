@@ -12,25 +12,22 @@ type Anchor struct{
 
 // anchorNodes recursively searches through the html tree checking if ElementNodes are Anchor tags
 
-func anchorNodes(n *html.Node) []*html.Node {
+func anchorNodes(n *html.Node) (anchors []*html.Node) {
 	// Check if node is an <a> tag and if it is return it
 	if n.Type == html.ElementNode && n.Data == "a" {
 		return []*html.Node{n}
 	}
-	var ret []*html.Node
 	
 	// dfs search through html tree appending each node we find
 	// to our return variable
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
-		ret = append(ret, anchorNodes(c)...)
+		anchors = append(anchors, anchorNodes(c)...)
 	} 
 
-	return ret
+	return
 }
 
 func ParseAnchors(r io.Reader) (anchors []Anchor, err error) {
-	var ret []Anchor // Define the return value
-
 	// Get the first node in the html tree
 	docNode, err := html.Parse(r)
 	if err != nil {
@@ -46,8 +43,8 @@ func ParseAnchors(r io.Reader) (anchors []Anchor, err error) {
 		// href and text of the first child then append it to the return value
 		if node.Attr[0].Key == "href" {
 			a := Anchor{node.Attr[0].Val, node.FirstChild.Data}
-			ret = append(ret, []Anchor{a}...)
+			anchors = append(anchors, []Anchor{a}...)
 		}
 	}
-	return ret, nil
+	return 
 }
